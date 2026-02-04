@@ -1,0 +1,41 @@
+<?php return array(
+    'root' => array(
+        'name' => 'david/servicioweb',
+        'pretty_version' => 'dev-main',
+        'version' => 'dev-main',
+        'reference' => '2f657e218e927d4a3bcc716a43b7312b997dd0d0',
+        'type' => 'project',
+        'install_path' => __DIR__ . '/../../',
+        'aliases' => array(),
+        'dev' => true,
+    ),
+    'versions' => array(
+        'david/servicioweb' => array(
+            'pretty_version' => 'dev-main',
+            'version' => 'dev-main',
+            'reference' => '2f657e218e927d4a3bcc716a43b7312b997dd0d0',
+            'type' => 'project',
+            'install_path' => __DIR__ . '/../../',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'php2wsdl/php2wsdl' => array(
+            'pretty_version' => '0.6.1',
+            'version' => '0.6.1.0',
+            'reference' => '37c15cdc4cdd15363faf151dc0121ac5595fc513',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../php2wsdl/php2wsdl',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'wingu/reflection' => array(
+            'pretty_version' => '1.2.0',
+            'version' => '1.2.0.0',
+            'reference' => 'c784361e516b58f326f1cabafe02e829298e85f7',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../wingu/reflection',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+    ),
+);
