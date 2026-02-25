@@ -1,13 +1,13 @@
 <?xml version="1.0"?>
 <definitions xmlns="http://schemas.xmlsoap.org/wsdl/"
-  xmlns:tns="http://dwcs.localhost/FPADISTANCIA/APUNTES/TEMA-06/TAREA-06/servidorSoap/servicio.php"
+  xmlns:tns="http://dwcs.localhost/TEMA-06/TAREA-06-ideas/servidorSoap/servicio.php"
   xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
   xmlns:soap-enc="http://schemas.xmlsoap.org/soap/encoding/"
   xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" name="Clases.Operaciones"
-  targetNamespace="http://dwcs.localhost/FPADISTANCIA/APUNTES/TEMA-06/TAREA-06/servidorSoap/servicio.php">
+  targetNamespace="http://dwcs.localhost/TEMA-06/TAREA-06-ideas/servidorSoap/servicio.php">
   <types>
     <xsd:schema
-      targetNamespace="http://dwcs.localhost/FPADISTANCIA/APUNTES/TEMA-06/TAREA-06/servidorSoap/servicio.php">
+      targetNamespace="http://dwcs.localhost/TEMA-06/TAREA-06-ideas/servidorSoap/servicio.php">
       <xsd:import namespace="http://schemas.xmlsoap.org/soap/encoding/" />
     </xsd:schema>
   </types>
@@ -37,50 +37,50 @@
     <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http" />
     <operation name="getPvp">
       <soap:operation
-        soapAction="http://dwcs.localhost/FPADISTANCIA/APUNTES/TEMA-06/TAREA-06/servidorSoap/servicio.php#getPvp" />
+        soapAction="http://dwcs.localhost/TEMA-06/TAREA-06-ideas/servidorSoap/servicio.php#getPvp" />
       <input>
         <soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
-          namespace="http://dwcs.localhost/FPADISTANCIA/APUNTES/TEMA-06/TAREA-06/servidorSoap/servicio.php" />
+          namespace="http://dwcs.localhost/TEMA-06/TAREA-06-ideas/servidorSoap/servicio.php" />
       </input>
       <output>
         <soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
-          namespace="http://dwcs.localhost/FPADISTANCIA/APUNTES/TEMA-06/TAREA-06/servidorSoap/servicio.php" />
+          namespace="http://dwcs.localhost/TEMA-06/TAREA-06-ideas/servidorSoap/servicio.php" />
       </output>
     </operation>
     <operation name="getStock">
       <soap:operation
-        soapAction="http://dwcs.localhost/FPADISTANCIA/APUNTES/TEMA-06/TAREA-06/servidorSoap/servicio.php#getStock" />
+        soapAction="http://dwcs.localhost/TEMA-06/TAREA-06-ideas/servidorSoap/servicio.php#getStock" />
       <input>
         <soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
-          namespace="http://dwcs.localhost/FPADISTANCIA/APUNTES/TEMA-06/TAREA-06/servidorSoap/servicio.php" />
+          namespace="http://dwcs.localhost/TEMA-06/TAREA-06-ideas/servidorSoap/servicio.php" />
       </input>
       <output>
         <soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
-          namespace="http://dwcs.localhost/FPADISTANCIA/APUNTES/TEMA-06/TAREA-06/servidorSoap/servicio.php" />
+          namespace="http://dwcs.localhost/TEMA-06/TAREA-06-ideas/servidorSoap/servicio.php" />
       </output>
     </operation>
     <operation name="getFamilias">
       <soap:operation
-        soapAction="http://dwcs.localhost/FPADISTANCIA/APUNTES/TEMA-06/TAREA-06/servidorSoap/servicio.php#getFamilias" />
+        soapAction="http://dwcs.localhost/TEMA-06/TAREA-06-ideas/servidorSoap/servicio.php#getFamilias" />
       <input>
         <soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
-          namespace="http://dwcs.localhost/FPADISTANCIA/APUNTES/TEMA-06/TAREA-06/servidorSoap/servicio.php" />
+          namespace="http://dwcs.localhost/TEMA-06/TAREA-06-ideas/servidorSoap/servicio.php" />
       </input>
       <output>
         <soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
-          namespace="http://dwcs.localhost/FPADISTANCIA/APUNTES/TEMA-06/TAREA-06/servidorSoap/servicio.php" />
+          namespace="http://dwcs.localhost/TEMA-06/TAREA-06-ideas/servidorSoap/servicio.php" />
       </output>
     </operation>
     <operation name="getProductosFamilia">
       <soap:operation
-        soapAction="http://dwcs.localhost/FPADISTANCIA/APUNTES/TEMA-06/TAREA-06/servidorSoap/servicio.php#getProductosFamilia" />
+        soapAction="http://dwcs.localhost/TEMA-06/TAREA-06-ideas/servidorSoap/servicio.php#getProductosFamilia" />
       <input>
         <soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
-          namespace="http://dwcs.localhost/FPADISTANCIA/APUNTES/TEMA-06/TAREA-06/servidorSoap/servicio.php" />
+          namespace="http://dwcs.localhost/TEMA-06/TAREA-06-ideas/servidorSoap/servicio.php" />
       </input>
       <output>
         <soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
-          namespace="http://dwcs.localhost/FPADISTANCIA/APUNTES/TEMA-06/TAREA-06/servidorSoap/servicio.php" />
+          namespace="http://dwcs.localhost/TEMA-06/TAREA-06-ideas/servidorSoap/servicio.php" />
       </output>
     </operation>
   </binding>
@@ -110,7 +110,7 @@
   <service name="Clases.OperacionesService">
     <port name="Clases.OperacionesPort" binding="tns:Clases.OperacionesBinding">
       <soap:address
-        location="http://dwcs.localhost/FPADISTANCIA/APUNTES/TEMA-06/TAREA-06/servidorSoap/servicio.php" />
+        location="http://dwcs.localhost/TEMA-06/TAREA-06-ideas/servidorSoap/servicio.php" />
     </port>
   </service>
 </definitions>

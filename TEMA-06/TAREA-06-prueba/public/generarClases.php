@@ -10,7 +10,7 @@ use Wsdl2PhpGenerator\Generator;
 use Wsdl2PhpGenerator\Config;
 
 $host = "dwcs.localhost";
-$urlrelativo = "/TEMA-06/TAREA-06-ideas/servidorSoap";
+$urlrelativo = "/TEMA-06/TAREA-06-prueba/servidorSoap";
 $uri = "http://" . $host . $urlrelativo;
 $url = $uri . "/servicio.wsdl";
 

@@ -1,6 +1,6 @@
 <?php
 $host = "localhost";
-$db = "proyecto";
+$db = "tarea06";
 $user = "gestor";
 $pass = "secreto";
 $dsn = "mysql:host=$host;dbname=$db;charset=utf8mb4";
