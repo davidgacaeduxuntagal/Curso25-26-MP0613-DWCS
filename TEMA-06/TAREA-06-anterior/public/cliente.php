@@ -11,6 +11,8 @@ try {
 } catch (SoapFault $f) {
     die("Error en cliente SOAP:" . $f->getMessage());
 }
+
+
 $codP = 13;
 $codT = 1;
 $codF = 'CONSOL';
