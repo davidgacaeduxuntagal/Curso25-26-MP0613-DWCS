@@ -1,3 +1,5 @@
+0. Recuerda que en el php.ini tiene que estar habilitada la extensión de SOAP:
+    extension=soap 
 
 1. composer update
 
