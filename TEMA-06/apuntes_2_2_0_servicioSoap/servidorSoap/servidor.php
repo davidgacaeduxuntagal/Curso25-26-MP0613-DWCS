@@ -18,7 +18,7 @@ ini_set('soap.wsdl_cache_ttl',0);
    }
  
    $host = "dwcs.localhost";
-   $urlrelativo = "/FPADISTANCIA/APUNTES/TEMA-06/apuntes_2_2_0_servicioSoap/servidorSoap";
+   $urlrelativo = "/TEMA-06/apuntes_2_2_0_servicioSoap/servidorSoap";
    $uri = "http://" . $host . $urlrelativo;
    $parametros=['uri'=>$uri];
    

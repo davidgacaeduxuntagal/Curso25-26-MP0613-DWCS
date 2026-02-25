@@ -1,4 +1,6 @@
 <?php
+error_reporting(E_ALL & ~E_DEPRECATED);
+
 ini_set('soap.wsdl_cache_enabled',0);
 ini_set('soap.wsdl_cache_ttl',0);
 
@@ -10,7 +12,7 @@ use Wsdl2PhpGenerator\Generator;
 use Wsdl2PhpGenerator\Config;
 
 $host = "dwcs.localhost";
-$urlrelativo = "/TEMA-06/TAREA-06-prueba/servidorSoap";
+$urlrelativo = "/TEMA-06/TAREA-06-anterior/servidorSoap";
 $uri = "http://" . $host . $urlrelativo;
 $url = $uri . "/servicio.wsdl";
 

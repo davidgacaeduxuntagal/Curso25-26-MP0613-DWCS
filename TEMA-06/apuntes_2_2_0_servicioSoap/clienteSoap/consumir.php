@@ -8,7 +8,7 @@ ini_set('soap.wsdl_cache_ttl',0);
 // El nombre DNS dwcs.localhost debe estar definido en el fichero C:\Windows\System32\drivers\etc\hosts
 // Los navegadores actuales no lo necesitan pero el cliente SOAP sí
    $host = "dwcs.localhost";
-   $urlrelativo = "/FPADISTANCIA/APUNTES/TEMA-06/apuntes_2_2_0_servicioSoap/servidorSoap";
+   $urlrelativo = "/TEMA-06/apuntes_2_2_0_servicioSoap/servidorSoap";
    $uri = "http://" . $host . $urlrelativo;
    $url = $uri . "/servidor.php";
    

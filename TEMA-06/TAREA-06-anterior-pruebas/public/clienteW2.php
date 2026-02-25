@@ -6,7 +6,7 @@ require '../vendor/autoload.php';
 use Clases\Clases1\ClasesOperacionesService;
 
 $host        = "dwcs.localhost";
-$urlrelativo = "/TEMA-06/TAREA-06-prueba/servidorSoap";
+$urlrelativo = "/TEMA-06/TAREA-06-anterior/servidorSoap";
 $uri         = "http://" . $host . $urlrelativo;
 $url         = $uri . "/servicio.wsdl";
 

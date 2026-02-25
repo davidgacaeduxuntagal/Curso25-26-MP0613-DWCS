@@ -2,7 +2,7 @@
 error_reporting(E_ALL & ~E_DEPRECATED);
 
 $host        = "dwcs.localhost";
-$urlrelativo = "/TEMA-06/TAREA-06-prueba/servidorSoap";
+$urlrelativo = "/TEMA-06/TAREA-06-anterior/servidorSoap";
 $uri         = "http://" . $host . $urlrelativo;
 $url         = $uri . "/servicio.wsdl";
 

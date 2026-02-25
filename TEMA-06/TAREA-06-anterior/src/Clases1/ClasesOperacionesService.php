@@ -27,7 +27,7 @@ class ClasesOperacionesService extends \SoapClient
   'features' => 1,
 ), $options);
       if (!$wsdl) {
-        $wsdl = 'http://dwcs.localhost/TEMA-06/TAREA-06-ideas/servidorSoap/servicio.wsdl';
+        $wsdl = 'http://dwcs.localhost/TEMA-06/TAREA-06-anterior/servidorSoap/servicio.wsdl';
       }
       parent::__construct($wsdl, $options);
     }

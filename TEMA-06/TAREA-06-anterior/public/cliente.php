@@ -2,24 +2,24 @@
 error_reporting(E_ALL & ~E_DEPRECATED);
 
 $host        = "dwcs.localhost";
-$urlrelativo = "/TEMA-06/TAREA-06-ideas/servidorSoap";
+$urlrelativo = "/TEMA-06/TAREA-06-anterior/servidorSoap";
 $uri         = "http://" . $host . $urlrelativo;
-$url         = $uri . "/servicio.wsdl";
+$url         = $uri . "/servicio.php";
 
 try {
-    $cliente = new SoapClient($url);
+    $cliente = new SoapClient(null, ['location' => $url, 'uri' => $uri]);
 } catch (SoapFault $f) {
     die("Error en cliente SOAP:" . $f->getMessage());
 }
-
 $codP = 13;
-$codT = 14;
+$codT = 1;
 $codF = 'CONSOL';
 
 //funcion getPvp ----------------------------------------------------------------------------
 $pvp = $cliente->__soapCall('getPvp', ['id' => $codP]);
 $precio = ($pvp == null) ? "No existe es Producto" : $pvp;
 echo "Código de producto de Código $codP: $precio";
+
 
 //funcion getFamilias -----------------------------------------------------------------------
 echo "<br>Código de Familas";
@@ -31,7 +31,7 @@ foreach ($familias as $k => $v) {
 echo "</ul>";
 
 //funcion getProductosFamila ----------------------------------------------------------------
-$productos = $cliente->__soapCall('getProductosFamilia', ['cofF' => $codF]);
+$productos = $cliente->__soapCall('getProductosFamilia', ['codF' => $codF]);
 echo "<br>Productos de la Famila $codF:";
 echo "<ul>";
 foreach ($productos as $k => $v) {

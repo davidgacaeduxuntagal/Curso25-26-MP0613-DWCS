@@ -1,0 +1,69 @@
+
+1. composer update
+
+2. Arreglar bug wsdl2phpgenerator 
+    líneas 156-158 del fichero
+       vendor\wsdl2phpgenerator\lib\PhpClass.php
+
+    cambiar por:
+    ====================================
+        if (count($this->implements != null ? $this->implements : []) > 0) {
+            $ret .= ' implements ' . implode(', ', $this->implements);
+        }
+
+3. Ojo: 
+    El nombre DNS dwcs.localhost debe estar definido en el fichero C:\Windows\System32\drivers\etc\hosts
+    Los navegadores actuales no lo necesitan pero el cliente SOAP sí. 
+	Añadir las líneas siguietes al fichero hosts: (substituye por tu nombre y fecha de creación para documentar)
+	  # [ David: 20260101: SOAP]
+      127.0.0.1 dwcs.localhost
+		
+		
+4. Generar el WSDL: 
+    Ejecutar el script siguiente. Se puede ejecutar como:
+       - script local: la salida se ve en la pestaña de "DEBUG CONSOLE" de Visual Studio Code.
+	   - en el navegador web: la salida se ve en el navegador (si hay errores)
+        
+		public\generarWsdl.php
+		
+    RESULTADO ESPERADO: Comprobar que se genera el fichero "servicio.wsdl" en carpeta servidorSoap
+	
+5. Generar las clases de SOAP en src/Clases1:
+    Ejecutar el script siguiente (se puede ejecutar como script local o en el navegador web)
+        public\generarWsdl.php
+		
+    RESULTADO ESPERADO: Comprobar que se crean
+	   - carpeta: src/Clases1
+	   - fichero: src/Clases1/autoload.php
+	   - fichero: src/Clases1/ClasesOperacionesService.php
+	   
+6. PRUEBA 1: de que funciona el cliente y servidor:	   
+       
+	   Ejecutar el script siguiente (se puede ejecutar como script local o en el navegador web)
+          public\cliente.php
+		  
+    RESULTADO ESPERADO: salida como:
+	
+	 Código de producto de Código 13: 99.90
+     Código de Familas
+          · CAMARA
+          · CONSOL
+	   ... etcétera ...
+	
+	SI HAY FALLO: 
+	  - comprobar que la base de datos está creada y que las credenciales en Conexion.php son válidas.
+	  - si lo anterior no lo soluciona, ejecutar paso a paso en modo depuración hasta encontrar el problema
+	  
+  Si el paso 6. anterior funcionó, los siguientes también deberían funcionar: hacen los mismo, pero utilizando las
+  APIs de distintas formas, para ilustrar las distintas formas de usarlas.  
+	  
+	  
+7. PRUEBA 2: de que funciona el cliente y servidor:	   
+       
+	   Ejecutar el script siguiente (se puede ejecutar como script local o en el navegador web)
+          public\clienteW.php	  
+		  
+8. PRUEBA 2: de que funciona el cliente y servidor:	   
+       
+	   Ejecutar el script siguiente (se puede ejecutar como script local o en el navegador web)
+          public\clienteW.php	 		  

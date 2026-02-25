@@ -21,7 +21,7 @@ class Conexion
     {
         $user = "gestor";
         $pass = "secreto";
-        $base='proyecto';
+        $base='tarea06';
         $dsn = "mysql:host=localhost;dbname=$base;charset=utf8mb4";
         
         try {
