@@ -1,6 +1,64 @@
+REPO de ejemplos de trabajo con Jaxon (muy mejorado en la versión 5.x, con código ejemplo al lado de los ejemplos):
+
 https://github.com/jaxon-php/jaxon-examples
 
+
+    AVISO: para que tirase bien tuve que hacer varias cosas:
+      1) Eliminar el fichero composer.lock que viene por defecto
+      2) Cambié el nombre de la carpeta raíz del projecto (que descargué como un .zip) de "jaxon-examples-main" a "jaxon-examples"
+      3) Eliminé el composer.lock que venía en la carpeta raíz
+      4) Ejecuté: composer install
+      5) En el fichero examples\bootstrap.php:
+	    
+          cambié las líneas 7 y 8:
+          
+            require dirname(__DIR__, 2) . '/vendor/autoload.php';
+            require_once dirname(__DIR__, 2) . '/jaxon-core/src/globals.php';
+          
+          por:
+          
+            require dirname(__DIR__) . '/vendor/autoload.php';
+            require_once dirname(__DIR__) . '/vendor/jaxon-php/jaxon-core/src/globals.php';
+          
+		
+
+
+
+
+   
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!   
+ Recuerda configurar tu Apache2 como se indica en la raíz de este repo (EJEMPLO-httpd-vhosts.conf)
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+    POR EJEMPLO:
+
+     Define DWCS-PROFE "C:/DWCS-PROFE/Curso25-26-MP0613-DWCS"
+
+     ## -------------------------------------------------------------------------------------
+     ## Probar ejemplos Jaxon5 
+     ## -------------------------------------------------------------------------------------
+     <VirtualHost *:80>
+     ServerAdmin webmaster@dwcs.localhost
+     DocumentRoot "${DWCS-PROFE}/TEMA-07/jaxon/jaxon5/jaxon-examples/public"
+     ServerName jaxon5profe.localhost
+     ServerAlias jaxon5profe.localhost
+     <Directory "${DWCS-PROFE}/TEMA-07/jaxon/jaxon5/jaxon-examples/public">
+     Options Indexes FollowSymLinks Includes ExecCGI
+     Require all granted
+     AllowOverride All
+     </Directory>
+     ErrorLog "logs/jaxon5profe.localhost.log"
+     CustomLog "logs/jaxon5profe.localhost-access.log" common
+     </VirtualHost>   
+
+
+
+
+    
+==============================================================================================
 AVISO:
+==============================================================================================
+
 Si composer update pide un access token de GitHub, entonces tienes que:
 
 1) Ir a tu cuenta de GitHub (con la que estás trabajando) y solictar un access token
@@ -15,4 +73,3 @@ Si composer update pide un access token de GitHub, entonces tienes que:
      composer config -g github-oauth.github.com <tu token> 
 
 
-3) Recuerda configurar tu Apache2 como se indica en la raíz de este repo (EJEMPLO-httpd-vhosts.conf)

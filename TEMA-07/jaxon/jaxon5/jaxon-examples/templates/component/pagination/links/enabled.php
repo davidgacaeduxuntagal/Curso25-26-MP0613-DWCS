@@ -1,0 +1,1 @@
+    <li class="page-item enabled" data-page="<?= $this->page ?>"><a class="page-link" role="link"><?= $this->text ?></a></li>
