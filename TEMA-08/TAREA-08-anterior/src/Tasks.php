@@ -3,7 +3,7 @@ session_start();
 require '../vendor/autoload.php';
 
 
-$redirect_uri = 'http://localhost/FPADISTANCIA/APUNTES/TEMA-08/TAREA-08/public/repartos.php';
+$redirect_uri = 'http://localhost/TEMA-08/TAREA-08-anterior/public/repartos.php';
 include("../../claves.inc.php");
 
 
