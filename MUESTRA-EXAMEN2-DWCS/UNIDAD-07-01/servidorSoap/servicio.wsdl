@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://localhost/EXAMEN2-DWCS/UNIDAD-07-01/servidorSoap/servicio.php" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap-enc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" name="Clases.OperacionesExamen2" targetNamespace="http://localhost/EXAMEN2-DWCS/UNIDAD-07-01/servidorSoap/servicio.php">
+  <types>
+    <xsd:schema targetNamespace="http://localhost/EXAMEN2-DWCS/UNIDAD-07-01/servidorSoap/servicio.php">
+      <xsd:import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
+    </xsd:schema>
+  </types>
+  <portType name="Clases.OperacionesExamen2Port">
+    <operation name="getTiendas">
+      <documentation>Obtiene listado de tiendas en formato {nombre, telefono, unidades}</documentation>
+      <input message="tns:getTiendasIn"/>
+      <output message="tns:getTiendasOut"/>
+    </operation>
+  </portType>
+  <binding name="Clases.OperacionesExamen2Binding" type="tns:Clases.OperacionesExamen2Port">
+    <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <operation name="getTiendas">
+      <soap:operation soapAction="http://localhost/EXAMEN2-DWCS/UNIDAD-07-01/servidorSoap/servicio.php#getTiendas"/>
+      <input>
+        <soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://localhost/EXAMEN2-DWCS/UNIDAD-07-01/servidorSoap/servicio.php"/>
+      </input>
+      <output>
+        <soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://localhost/EXAMEN2-DWCS/UNIDAD-07-01/servidorSoap/servicio.php"/>
+      </output>
+    </operation>
+  </binding>
+  <message name="getTiendasIn">
+    <part name="idProducto" type="xsd:int"/>
+  </message>
+  <message name="getTiendasOut">
+    <part name="return" type="soap-enc:Array"/>
+  </message>
+  <service name="Clases.OperacionesExamen2Service">
+    <port name="Clases.OperacionesExamen2Port" binding="tns:Clases.OperacionesExamen2Binding">
+      <soap:address location="http://localhost/EXAMEN2-DWCS/UNIDAD-07-01/servidorSoap/servicio.php"/>
+    </port>
+  </service>
+</definitions>

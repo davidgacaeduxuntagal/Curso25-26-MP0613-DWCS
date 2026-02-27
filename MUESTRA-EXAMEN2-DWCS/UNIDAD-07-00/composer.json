@@ -1,0 +1,26 @@
+{
+    "name": "david/ejercicio2_4",
+    "description": "Prueba2",
+    "type": "project",
+    "require": {
+        "philo/laravel-blade": "^3.1",
+        "php2wsdl/php2wsdl": "^0.6.1",
+        "wsdl2phpgenerator/wsdl2phpgenerator": "^3.4"
+    },
+    "license": "GPL",
+    "autoload": {
+        "psr-4": {
+            "Clases\\": "src"
+        }
+    },
+    "authors": [
+        {
+            "name": "David"
+        }
+    ],
+    "config": {
+        "allow-plugins": {
+            "kylekatarnls/update-helper": true
+        }
+    }
+}
