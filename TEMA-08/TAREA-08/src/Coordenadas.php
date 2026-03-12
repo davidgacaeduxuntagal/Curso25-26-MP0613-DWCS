@@ -1,78 +1,130 @@
 <?php
 class Coordenadas  {
-    private static $key = "";  
-    private static $iniciourl = "http://dev.virtualearth.net/REST/v1/Locations/ES/Cangas/"; //Debes cambiar Cangas por tu localidad
-    private $finurl           = "?include=ciso2&maxResults=1&c=es&key=";
-    private $coordenadas;
-    private $url;
+    private static $keyOpenCage = "";
+    private static $keyGeoapify = "";
+    // Localidad por defecto para las búsquedas (cambia "Cangas" por tu localidad)
+    private static $localidad = "Cangas";
+    private $direccion;
 
     public function __construct()  {
-        include("../claves.inc.php");
-        self::$key = $keyBing;
+        include("../../claves.inc.php");
+        self::$keyOpenCage = $keyOpenCage;
+        self::$keyGeoapify = $keyGeoapify;
 
         $num = func_num_args();
 
         if ($num == 1) {
-            $this->finurl = "?include=ciso2&maxResults=1&c=es&key=" . self::$key;
-            $dir = str_replace(" ", "%20", func_get_arg(0));
-            $this->url = self::$iniciourl . "$dir" . $this->finurl;
-        }
-
-        if ($num == 0) {
-            $this->finurl = "?include=ciso2&maxResults=1&c=es&key=" . self::$key;
+            $this->direccion = func_get_arg(0);
         }
     }
 
-
+    /**
+     * Geocodificación con OpenCage: dirección → coordenadas
+     */
     public function getCoordenadas()  {
-        $salida   = file_get_contents($this->url);
-        $salida1  = json_decode($salida, true);
-        $valor    = $salida1["resourceSets"][0]["resources"][0]["point"]["coordinates"];
-        $valor[2] = $this->calculaAltitud($valor);
+        $query = self::$localidad . ", " . $this->direccion . ", ES";
+        $query = urlencode($query);
+        $url   = "https://api.opencagedata.com/geocode/v1/json?q=$query&limit=1&language=es&key=" . self::$keyOpenCage;
 
-        return $valor;
-    }
-
-    public function calculaAltitud($c)  {
-        $lat    = $c[0];
-        $lon    = $c[1];
-        $url    = "http://dev.virtualearth.net/REST/v1/Elevation/List?points=$lat,$lon&key=" . self::$key;
-        $salida = file_get_contents($url);
-        $valor  = json_decode($salida, true);
-        
-        return $valor["resourceSets"][0]["resources"][0]["elevations"][0];
-    }
-
-    public function ordenarEnvios($dato)   {
-        //Ponemos las coordenadas del alamacen por ejemplo '36.86071,-2.440779' como inicio y fin de la ruta
-        $base   = "http://dev.virtualearth.net/REST/v1/Routes/Driving?c=es&wp.0=36.86071,-2.440779&";
-        $puntos = explode("|", $dato);
-        $num    = 1;
-        $trozo  = "";
-
-        for ($i = 0; $i < count($puntos); $i++) {
-            $trozo .= "wp." . $num++ . "=" . $puntos[$i] . "&";
-        }
-
-        $trozo .= "wp." . $num . "=36.86071,-2.440779&optwp=true&optimize=distance&ra=routePath&key=" . self::$key;
-        $url = $base . $trozo;
-
-        //die($url);
-        $salida  = $this->getRemoteFile($url);
+        $salida  = file_get_contents($url);
         $salida1 = json_decode($salida, true);
 
-        if (isset($salida1["errors"]) && $salida1['statusCode'] == 404) {
+        if (empty($salida1["results"])) {
+            return [0, 0, 0];
+        }
+
+        $lat = $salida1["results"][0]["geometry"]["lat"];
+        $lon = $salida1["results"][0]["geometry"]["lng"];
+        $alt = $this->calculaAltitud([$lat, $lon]);
+
+        return [$lat, $lon, $alt];
+    }
+
+    /**
+     * Altitud con Open-Elevation (gratuito, sin clave)
+     */
+    public function calculaAltitud($c)  {
+        $lat = $c[0];
+        $lon = $c[1];
+        $url = "https://api.open-elevation.com/api/v1/lookup?locations=$lat,$lon";
+
+        $salida = file_get_contents($url);
+        $valor  = json_decode($salida, true);
+
+        if (isset($valor["results"][0]["elevation"])) {
+            return $valor["results"][0]["elevation"];
+        }
+        return 0;
+    }
+
+    /**
+     * Optimización de ruta con Geoapify Route Planner API
+     * Recibe los waypoints como "lat1,lon1|lat2,lon2|..."
+     * Devuelve el orden óptimo de los waypoints (sin incluir almacén)
+     */
+    public function ordenarEnvios($dato)   {
+        // Coordenadas del almacén (inicio y fin de la ruta)
+        $almacenLat = 36.86071;
+        $almacenLon = -2.440779;
+
+        $puntos = explode("|", $dato);
+
+        // Construir el cuerpo JSON para Geoapify Route Planner
+        // mode=drive, agente sale del almacén y vuelve al almacén
+        $jobs = [];
+        for ($i = 0; $i < count($puntos); $i++) {
+            $coords = explode(",", $puntos[$i]);
+            $lat = floatval(trim($coords[0]));
+            $lon = floatval(trim($coords[1]));
+            $jobs[] = [
+                "location" => [$lon, $lat],  // Geoapify usa [lon, lat]
+                "id" => strval($i + 1)
+            ];
+        }
+
+        $body = [
+            "mode" => "drive",
+            "agents" => [
+                [
+                    "start_location" => [$almacenLon, $almacenLat],
+                    "end_location"   => [$almacenLon, $almacenLat],
+                    "id" => "driver1"
+                ]
+            ],
+            "jobs" => $jobs
+        ];
+
+        $url = "https://api.geoapify.com/v1/routeplanner?apiKey=" . self::$keyGeoapify;
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($body));
+        curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 15);
+        $salida = curl_exec($ch);
+        $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        curl_close($ch);
+
+        if (!$salida || $httpCode == 404 || $httpCode >= 400) {
             return "404";
         }
-        
-        $wayp = $salida1["resourceSets"][0]["resources"][0]['waypointsOrder'];
-        
-        //quitamos el primero y el ultimo (inicio y fin) (El almacen)
-        array_shift($wayp);
-        array_pop($wayp);
 
-        for ($i = 0; $i < count($wayp); $i++) {
-            $resp[] = substr(strstr($wayp[$i], '.'), 1);
+        $salida1 = json_decode($salida, true);
+
+        if (!isset($salida1["features"][0]["properties"]["actions"])) {
+            return "404";
+        }
+
+        $actions = $salida1["features"][0]["properties"]["actions"];
+        $resp = [];
+
+        foreach ($actions as $action) {
+            // Cada acción de tipo "job" tiene el job_id que corresponde al índice original
+            if (isset($action["type"]) && $action["type"] === "job") {
+                $resp[] = $action["job_id"];
+            }
         }
 
         return $resp;

@@ -38,18 +38,18 @@ function ordenarEnvios(id) {
 
 function obtuvimosDatos(datosRespuesta) {
     if (datosRespuesta['respuesta'] == "404" ) {
-        alert("Servicio para ordenar Rutas de Bing Maps no disponible temporalmente");
+        alert("Servicio para ordenar Rutas no disponible temporalmente");
         return datosRespuesta['respuesta'];
     }
 
     // Si obtuvimos una respuesta, reordenamos los envíos del reparto
-    // Cogemos la URL base del documento, quitando los parámetros GET si los hay
-    var url = "http://localhost/TEMA-08/TAREA-08-anterior/public/repartos.php";
+    var url = "http://localhost/TEMA-08/TAREA-08/repartos.php";
 
     // Añadimos el código de la lista de reparto
     url += '?action=oEnvios&idLt=' + datosRespuesta['id'];
 
     // Y un array con las nuevas posiciones que deben ocupar los envíos
+    var respuesta = datosRespuesta['respuesta'];
     for (var r in respuesta) url += '&pos[]=' + respuesta[r];
 
     window.location = url;
@@ -61,7 +61,6 @@ function semaforo() {
     var pro     = document.getElementById("pro").value
 
     if (latitud.length == 0 || pro == -1) {
-        //alert("Elija un producto.");
         return false;
     }
 

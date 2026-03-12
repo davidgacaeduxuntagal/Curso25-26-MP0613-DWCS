@@ -4,9 +4,8 @@ if (!isset($_GET['lat'])) {
     die();
 }
 
-include("../../../claves.inc.php");
-$urlBingMaps = 'https://www.bing.com/api/maps/mapcontrol?key='. $keyBing;
-
+$lat = htmlspecialchars($_GET['lat']);
+$lon = htmlspecialchars($_GET['lon']);
 ?>
 
 <!DOCTYPE html>
@@ -17,43 +16,33 @@ $urlBingMaps = 'https://www.bing.com/api/maps/mapcontrol?key='. $keyBing;
     <!-- Bootstrap CDN -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <meta http-equiv='Content-Type' content='text/html; charset=utf-8' />
-    <script type='text/javascript' src=<?php echo '"' . $urlBingMaps . '"'?>></script> <!-- OCULTAR -->
-    <script type='text/javascript'>
-    //esta funcion coge de la url los parámetross get, en este caso lat y lon y devuelve su valor
-        function getParameterByName(name) {
-            name        = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
-            let regex   = new RegExp("[\\?&]" + name + "=([^&#]*)");
-            let results = regex.exec(location.search);
-
-            return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
-        }
-
-        var map;
-        var lat = getParameterByName('lat');
-        var lon = getParameterByName('lon');
-
-        function loadMapScenario() {
-            map = new Microsoft.Maps.Map(document.getElementById('myMap'), {
-                center: new Microsoft.Maps.Location(lat, lon),
-                mapTypeId: Microsoft.Maps.MapTypeId.canvasLight,
-                zoom: 17
-            });
-        }
-    </script>
+    <!-- Leaflet CSS y JS (gratuito, open source) -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 </head>
 
-<body onload='loadMapScenario();' style="background:#00bfa5;">
+<body style="background:#00bfa5;">
     <div class="container mt-3 ">
         <div class="d-flex justify-content-center">
             <div id='myMap' style='width: 650px; height: 420px;'></div>
-            <div class="mt-r">
-
-            </div>
         </div>
         <div class="d-flex justify-content-center mt-3">
             <a href='repartos.php' class='btn btn-warning'>Volver</a>
         </div>
     </div>
+
+    <script type='text/javascript'>
+        var lat = <?php echo json_encode($lat); ?>;
+        var lon = <?php echo json_encode($lon); ?>;
+
+        var map = L.map('myMap').setView([lat, lon], 17);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        L.marker([lat, lon]).addTo(map);
+    </script>
 </body>
 
 </html>

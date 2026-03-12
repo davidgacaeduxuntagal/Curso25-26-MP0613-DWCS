@@ -1,4 +1,6 @@
 <?php
+error_reporting(E_ALL & ~E_DEPRECATED);
+
 include '../src/Tasks.php';
 require(__DIR__ . '/../vendor/autoload.php');
 
@@ -6,7 +8,7 @@ use Jaxon\Jaxon;
 use function Jaxon\jaxon;
 
 
-$corAlmacen = "36.86071,-2.440779";
+$corAlmacen = "42.26568941470343,-8.760011614488368";  // Almacén de la emprsa en Vigo; cambiar si se quiere
 $service    = new Google_Service_Tasks($client);
 
 function getListasTareas() {

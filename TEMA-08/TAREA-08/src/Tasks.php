@@ -4,7 +4,7 @@ require '../vendor/autoload.php';
 
 
 $redirect_uri = 'http://localhost/TEMA-08/TAREA-08/public/repartos.php';
-include("../../../claves.inc.php");
+include("../../claves.inc.php");
 
 
 // Crear la solicitud de cliente 
