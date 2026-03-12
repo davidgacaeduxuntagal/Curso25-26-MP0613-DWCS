@@ -2,8 +2,8 @@
 session_start();
 require '../vendor/autoload.php';
 
-$redirect_uri = 'http://localhost/FPADISTANCIA/APUNTES/TEMA-08/P08_04_04_05/public/probarTasks.php';
-include("../../claves.inc.php");
+$redirect_uri = 'http://localhost/TEMA-08/P08_04_04_05/public/probarTasks.php';
+include("../claves.inc.php");
 
 
 // Crear la solicitud de cliente 

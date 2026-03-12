@@ -5,7 +5,7 @@
 $curl = curl_init();
 
 // [OCULTAR]
-include("../../claves.inc.php");
+include("../claves.inc.php");
 
 curl_setopt_array($curl, array(
   CURLOPT_URL => "https://opendata.aemet.es/opendata/api/valores/climatologicos/inventarioestaciones/todasestaciones/?api_key=" .$keyAEMET, 
