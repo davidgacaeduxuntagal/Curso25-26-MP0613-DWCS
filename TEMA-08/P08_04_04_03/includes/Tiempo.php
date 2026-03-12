@@ -4,14 +4,14 @@ class Tiempo  {
     private $respuesta;
 
     private $urlTiempo       = 'https://api.openweathermap.org/data/2.5/weather?';
-    private $urlLocalizacion = "http://dev.virtualearth.net/REST/v1/Locations";
+    private $urlLocalizacion = "https://api.opencagedata.com/geocode/v1/json";
 
     private $opciones;
     private $revGeocodeUrl;
 
     public function __construct($la, $lo)   {
-        include("../claves.inc.php");
-     
+        include("../../claves.inc.php");
+
         // Preparar datos acceso a consulta REST tiempo:
         $urlCompleto = $this->urlTiempo . '&lat=' . $la . "&lon=" . $lo . "&units=metric". "&lang=es" ."&appid=" . $keyOpenWeatherMap;
 
@@ -28,8 +28,8 @@ class Tiempo  {
             )
         ); 
 
-        // Preparar datos acceso servicio localizacion Bing:
-        $this->revGeocodeUrl = $this->urlLocalizacion . "/$la,$lo?c=es&output=json&key={$keyBing}";
+        // Preparar datos acceso servicio localizacion OpenCage (reemplaza Bing Maps):
+        $this->revGeocodeUrl = $this->urlLocalizacion . "?q={$la}+{$lo}&language=es&key={$keyOpenCage}";
     }
 
     public function getTiempo()  {
@@ -39,7 +39,7 @@ class Tiempo  {
         curl_close($ch);
 
         $salida = json_decode($respuesta, true);
-        
+
         return $salida;
     }
 
@@ -47,6 +47,32 @@ class Tiempo  {
         $salida  = file_get_contents($this->revGeocodeUrl);
         $salida1 = json_decode($salida, true);
 
-        return $salida1["resourceSets"][0]["resources"][0]["address"];
+        $components = $salida1["results"][0]["components"];
+        $formatted  = $salida1["results"][0]["formatted"];
+
+        // Mapear los campos de OpenCage a la estructura que espera Datos.php
+        // formattedAddress -> formatted
+        // locality -> city / town / village
+        // adminDistrict2 -> county / state_district
+        // countryRegion -> country
+        $locality = $components['city'] 
+            ?? $components['town'] 
+            ?? $components['village'] 
+            ?? $components['municipality'] 
+            ?? '';
+
+        $adminDistrict2 = $components['county'] 
+            ?? $components['state_district'] 
+            ?? $components['state'] 
+            ?? '';
+
+        $countryRegion = $components['country'] ?? '';
+
+        return array(
+            'formattedAddress' => $formatted,
+            'locality'         => $locality,
+            'adminDistrict2'   => $adminDistrict2,
+            'countryRegion'    => $countryRegion
+        );
     }
 }
