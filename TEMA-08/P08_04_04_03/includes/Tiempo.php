@@ -4,7 +4,7 @@ class Tiempo  {
     private $respuesta;
 
     private $urlTiempo       = 'https://api.openweathermap.org/data/2.5/weather?';
-    private $urlLocalizacion = "https://api.opencagedata.com/geocode/v1/json";
+    private $urlLocalizacion = "https://api.opencagedata.com/geocode/v1/json"; 
 
     private $opciones;
     private $revGeocodeUrl;
