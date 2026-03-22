@@ -1,6 +1,9 @@
 <?php
 // Obtener key gratuíta en:
-// https://openweathermap.org/price
+// https://home.openweathermap.org/users/sign_in
+//
+// O búscar "Subscribe for free" en la página principal:
+// https://openweathermap.org
 //   Professional collections --> Free --> Get API KEY
 
 $curl = curl_init();
