@@ -2,7 +2,7 @@
 require '../vendor/autoload.php';
 
 $host        = "localhost";
-$urlrelativo = "EXAMEN2-DWCS/UNIDAD-06-01/servidorSoap";
+$urlrelativo = "MUESTRA-EXAMEN2-DWCS/UNIDAD-06-01/servidorSoap";
 $uri         = "http://" . $host . $urlrelativo;
 $url         = $uri . "/servicio.wsdl";
 

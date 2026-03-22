@@ -12,7 +12,7 @@ use Wsdl2PhpGenerator\Generator;
 use Wsdl2PhpGenerator\Config;
 
 $host = "localhost";
-$urlrelativo = "/EXAMEN2-DWCS/UNIDAD-07-01/servidorSoap";
+$urlrelativo = "/MUESTRA-EXAMEN2-DWCS/UNIDAD-07-01/servidorSoap";
 $uri = "http://" . $host . $urlrelativo;
 $url = $uri . "/servicio.wsdl";
 

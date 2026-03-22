@@ -27,7 +27,7 @@ class ClasesOperacionesExamen2Service extends \SoapClient
   'features' => 1,
 ), $options);
       if (!$wsdl) {
-        $wsdl = 'http://localhost/EXAMEN2-DWCS/UNIDAD-06-01/servidorSoap/servicio.wsdl';
+        $wsdl = 'http://localhost/MUESTRA-EXAMEN2-DWCS/UNIDAD-06-01/servidorSoap/servicio.wsdl';
       }
       parent::__construct($wsdl, $options);
     }
