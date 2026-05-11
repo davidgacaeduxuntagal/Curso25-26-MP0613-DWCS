@@ -1,4 +1,8 @@
 <?php
+error_reporting(E_ALL & ~E_DEPRECATED);
+
+error_reporting(E_ALL & ~E_DEPRECATED);
+
 session_start();
 require '../vendor/autoload.php';
 
