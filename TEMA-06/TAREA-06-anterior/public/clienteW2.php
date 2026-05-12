@@ -22,15 +22,17 @@ $codF = 'MP3';
 
 //---------------------------------------------------------------------------------------
 $objeto = new ClasesOperacionesService();
-// Añadir cookie para depuración con XDEBUG si queremos 
-//  depurar la invocación del servicio.php al ser invocada
-//  por la solicitud HTTP SOAP iniciada desde el cliente.
-//  Parámetros de configuración de XDEBUG en php.ini:
-//  [xdebug]
-//  xdebug.mode=debug
-//  xdebug.start_with_request=trigger
-//  xdebug.client_host=127.0.0.1
-//  xdebug.client_port=9003
+//  No es necesario si depuramos usando "Listen for XDEBUG" en el IDE, e invocamos
+//   desde el navegado el cliente SOAP
+//  Añadir cookie para depuración con XDEBUG si queremos 
+//   depurar la invocación del servicio.php al ser invocada
+//   por la solicitud HTTP SOAP iniciada desde el cliente.
+//   Parámetros de configuración de XDEBUG en php.ini:
+//   [xdebug]
+//   xdebug.mode=debug
+//   xdebug.start_with_request=trigger
+//   xdebug.client_host=127.0.0.1
+//   xdebug.client_port=9003
 // $objeto->__setCookie('XDEBUG_SESSION', 'VSCODE');
 
 
